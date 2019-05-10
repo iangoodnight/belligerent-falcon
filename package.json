@@ -1,0 +1,26 @@
+{
+  "name": "belligerent-falcon",
+  "version": "1.0.0",
+  "description": "A web app that scrapes that status pages of several sites used by Bulk Apothecary/Natural Essentials and displays their current status.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iangoodnight/belligerent-falcon.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iangoodnight/belligerent-falcon/issues"
+  },
+  "homepage": "https://github.com/iangoodnight/belligerent-falcon#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "express": "^4.16.4",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4",
+    "socket.io": "^2.2.0"
+  }
+}

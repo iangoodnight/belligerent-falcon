@@ -1,15 +1,17 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>Socket.IO Example</title>
 	</head>
 	<body>
+		<h1>Big Commerce Statuses</h1>
 		<div id="display">
 		</div>
 		<script
 		  src="https://code.jquery.com/jquery-3.4.1.js"
 		  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
 		  crossorigin="anonymous"></script>
+		<!-- Fix this file path later -->
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
 			console.log("Ready!");
@@ -17,7 +19,15 @@
 
 			socket.on('data', function(data) {
 				console.log(data);
-				$("#display").text(data)
+
+				var results = "";
+
+				for (var i = 0; i < data.length; i++) {
+					results = results + "<p>" + data[i].name + ": " + data[i].status + "</p>";
+				}
+
+				$("#display").html(results);
+
 
 				socket.emit('receivedFromClient', { my: 'data' });
 			});

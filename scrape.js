@@ -1,53 +1,56 @@
 const rp = require('request-promise');
 const request = require('request');
 const url = 'https://status.bigcommerce.com/';
-const ch = require('cheerio');
+const cheerio = require('cheerio');
 
+//  Expose our 'scrape' function to be imported by our server.
 exports.scrape = function() {
+	
+	//  An empty array to save the data that we'll scrape.
+	var results = [];
 
-// 	rp(url)
-// 	  .then(function(html){
-// 	    //success!
-// 	    // console.log(ch('.name', html).length);
-// 	    console.log(ch('.name', html).text());
-// 	    console.log(ch('.component-inner-container', html).text());
-// 	    // // var status = JSON.stringify(ch('.component-inner-container', html).text());
-// 	    // var status = (ch('.component-inner-container', html));
-// 	    // console.log("status: " + status);
-// 	    return status;
-// 	  })
-// 	  .catch(function(err){
-// 	    //handle error
-// 	  });
+	//  Firstly, tell the console what scrape.js is doing
+	console.log("\n***************************************\n" +
+							"Grabbing names and statuses\n" + 
+							"from 'http://status.bigcommerce.com/'" +
+							"\n***************************************\n");
 
-// };
+	//  Making a request fomr BigCommerce's status page.  The pages HTML is passed as the callback's third argument
+	request(url, function(error, response, html) {
 
-let nameArr = [];
+		//  Load the HTML into cheerio and save it as a variable.
+		//  '$' becomes shorthand for cheerio's slector commands, much like jQuery's '$'
+		var $ = cheerio.load(html);
 
-let statusArr = [];
+		// //  An empty array to save the data that we'll scrape.
+		// var results = [];
 
+		//  With cheerio, find each div tag with the 'component-inner-container' class.
+		// (i: iterator, element: the current element)
+		$("div.component-inner-container").each(function(i, element) {
 
-request(url, (err, res, body) => {
+			//  Declare our name and status variables for building our object.
+			var name, status;
+			//  Pull out the names from our span tags.
+			name = $(element).children('.name').text().trim();
+			//  Pull out the statuses from our span tags.
+			status = $(element).children('.component-status').text().trim();
+			//  Print results to the console (for testing)
+			console.log("name: " + name);
+			console.log("status: " + status  + "\n========================");
+			//  Save results in an object that we'll push into the results array we defined earlier.
+			results.push({
+				name: name,
+				status: status
+			});
+		});
 
-	// Load HTML body into cheerio
-	const $ = ch.load(body);
+	// //  return our scraped data.
+	// return results;
 
-	console.log($);
+	});
 
-	// // Scrape Names
-	// $('span.name').forEach((el) => {
-	// 	nameArr.push(el.text());
-	// });
-
-	// // Scrape Statuses
-	// $('span.component-status').forEach((i) => {
-	// 	statusArr.push(i.text());
-	// });
-
-	console.log(nameArr);
-
-});
+	//  return our scraped data.
+	return results;
 
 };
-
-//

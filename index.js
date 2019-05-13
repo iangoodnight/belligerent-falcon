@@ -5,13 +5,6 @@ var data = require('./scrape.js');
 
 var newScrape = data.scrape();
 
-console.log(data);
-// // Load data for client's first connect
-// // update every *N* minutes
-// data.scrape().then((status) => {
-// 	newScrape = status;
-// })
-
 app.get('/', function(req, res) {
 	res.sendFile(__dirname + '/index.html');
 });
@@ -24,8 +17,9 @@ io.on('connection', function(socket) {
 	console.log('Client connection received');
 
 	socket.emit('data', newScrape);
+	console.log("new scrape: " + JSON.stringify(newScrape));
 
-	socket.on('receivedFromClient', function (data) {
+	socket.on('receivedFromClient', function(data) {
 		console.log(data);
 	});
 }); 

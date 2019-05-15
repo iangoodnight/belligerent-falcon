@@ -10,7 +10,7 @@ var newScrape = data.scrape();
 app.use(express.static(path.join(__dirname, 'public'))); // Dictates that root directory from which to serve static assets.
 
 app.get('/', function(req, res) {
-	res.sendFile(__dirname + '/index.html');
+	res.sendFile(__dirname + './public/index.html');
 });
 
 io.on('connection', function(socket) {

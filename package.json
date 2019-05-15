@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A web app that scrapes that status pages of several sites used by Bulk Apothecary/Natural Essentials and displays their current status.",
   "scripts": {
-    "start": "node ./index.js",
+    "start": "nodemon ./index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,5 +22,8 @@
     "request": "^2.88.0",
     "request-promise": "^4.2.4",
     "socket.io": "^2.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.0"
   }
 }

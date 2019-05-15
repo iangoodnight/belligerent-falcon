@@ -3,6 +3,7 @@
 	<head>
 		<title>Socket.IO Example</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<link rel="stylesheet" href="./CSS/style.css">
 	</head>
 	<body>
 		
@@ -13,7 +14,20 @@
 		
 		<!-- Kristy Builds HTML here! -->
 
-			<!-- Glorious HTML -->
+		<div class="container tbstyle">
+			<div class="row tbstylein">3rd Party Name</div>
+		<div class="row">
+			<div class="col-sm tbstylein">Service</div>
+			<div class="col-sm tbstylein">Status</div>
+		</div>
+		<div class="row">
+			<div class="col-sm tbstylein">Service</div>
+			<div class="col-sm tbstylein redalert">Status - Red Alert</div>
+		</div>
+		<div class="row">
+			<div class="col-sm tbstylein">Service</div>
+			<div class="col-sm tbstylein">Status</div>
+		</div>
 
 		<!-- No more HTML pasty here -->
 
@@ -30,6 +44,20 @@
 			var socket = io();
 
 			socket.on('data', function(data) {
+				console.log(data);
+
+				var results = "";
+
+				for (var i = 0; i < data.length; i++) {
+					results = results + "<p>" + data[i].name + ": " + data[i].status + "</p>";
+				}
+
+				$("#display").html(results);
+
+
+				socket.emit('receivedFromClient', { my: 'data' });
+			});
+			socket.on('newData', function(data) {
 				console.log(data);
 
 				var results = "";

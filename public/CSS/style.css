@@ -1,28 +1,70 @@
 :root {
 	/*Color Choices*/
+	--BAbeigeLit:		#efead7;
 	--BAbeige: 			#e0d8b8;
+	--BAbeigeDim: 		#827d69;
+	--BAbeigeDimDim:	#3d3929;
 	--BAbeigeDark: 		#584231;
+	
+	--RedAlertLit: 		#ffac9b;
 	--RedAlert: 		#ff232e;
-	--RedAlertPulse:	#6b2e1f;
+	--RedAlertDim: 		#96161c;
+	
+	--GreenLit:			#7cc159;		
+	--Green:			#3baa42;		
+	--GreenDim:			#16511a;		
 
 	}
 /*Font Faces*/
 @font-face {
 	font-family: 'green';
-	src: url('../fonts/font.ttf') format('truetype');
+	src: url('../fonts/Space Obsessed.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
 }
 
-.tbstyle {
-	background-color: var(--BAbeige);
-	border: 4px solid var(--BAbeigeDark); border-radius: 10px;
-	font-family: 'green';
+.tbstylein {
+	border: 5px solid var(--BAbeigeDark);  border-radius: 10px; border-style: outset;
+	box-shadow: 5px 10px  3px #ada68c77, -8px 15px  8px #a5ad8c55;
+	text-align: center;
+
 }
 
-.tbstylein {
-	border: 4px solid var(--BAbeigeDark);
+
+
+.tbstyle {
+	background-color: var(--BAbeigeLit);
+	border: 4px solid var(--BAbeigeDark); border-style: inset;
+	font-family: 'green';
+	vertical-align: top;
+	text-align: center;
+	box-shadow: inset 0 0 8px 0px var(--BAbeigeDim),
+				inset 0 0 12px 3px var(--BAbeige);
+	
+}
+
+.header {
+	border: 16px solid var(--BAbeigeDark); border-radius: 10px; border-style: ridge;
+	font-family: 'green';
+	vertical-align: top;
+	text-align: center;
+
 }
 
 .redalert {
-	background-color: var(--RedAlert);
+	background-color: var(--RedAlertLit);
+	box-shadow: inset 0 0 8px 0px var(--RedAlertDim),
+				inset 0 0 12px 3px var(--RedAlert);
+}
+.green {
+	background-color: var(--GreenLit);
+	box-shadow: inset 0 0 8px 0px var(--GreenDim),
+				inset 0 0 12px 3px var(--Green);
+
+}
+.dim {
+	background-color: var(--BAbeigeDim);
+	box-shadow: inset 0 0 8px 0px var(--BAbeigeDimDim) ,
+				inset 0 0 20px -4px var(--BAbeigeDim);
+}
+

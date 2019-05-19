@@ -50,5 +50,3 @@ var scrape = function() {
 };
 
 exports.scrape = scrape;
-
-

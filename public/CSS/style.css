@@ -14,7 +14,7 @@
 	--Green:			#3baa42;		
 	--GreenDim:			#16511a;		
 
-	}
+}
 /*Font Faces*/
 @font-face {
 	font-family: 'green';
@@ -27,10 +27,8 @@
 	border: 5px solid var(--BAbeigeDark);  border-radius: 10px; border-style: outset;
 	box-shadow: 5px 10px  3px #ada68c77, -8px 15px  8px #a5ad8c55;
 	text-align: center;
-
+	margin-bottom: 20px;
 }
-
-
 
 .tbstyle {
 	background-color: var(--BAbeigeLit);
@@ -39,8 +37,7 @@
 	vertical-align: top;
 	text-align: center;
 	box-shadow: inset 0 0 8px 0px var(--BAbeigeDim),
-				inset 0 0 12px 3px var(--BAbeige);
-	
+				inset 0 0 12px 3px var(--BAbeige);	
 }
 
 .header {
@@ -48,7 +45,6 @@
 	font-family: 'green';
 	vertical-align: top;
 	text-align: center;
-
 }
 
 .redalert {
@@ -56,6 +52,7 @@
 	box-shadow: inset 0 0 8px 0px var(--RedAlertDim),
 				inset 0 0 12px 3px var(--RedAlert);
 }
+
 .green {
 	background-color: var(--GreenLit);
 	box-shadow: inset 0 0 8px 0px var(--GreenDim),

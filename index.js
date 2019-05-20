@@ -185,6 +185,7 @@ const getLCAndEmit = async socket => {
 				//  Pull out the statuses from our span tags.
 				status = $(element).children('.component-status').text().trim();
 				//  Print results to the console (for testing)
+				name === 'Support chat on www.livechatinc.com' ? name = 'Support Chat' : name = name;
 				console.log("name: " + name);
 				console.log("status: " + status  + "\n========================");
 				//  Save results in an object that we'll push into the results array we defined earlier.
@@ -287,6 +288,22 @@ const getStampsAndEmit = async socket => {
 				//  Pull out the statuses from our span tags.
 				status = $(element).children('.component-status').text().trim();
 				//  Print results to the console (for testing)
+				switch (name) {
+					case 'Stamps.com Online (Printing Postage Using a Web Browser)':
+						name = 'Stamps.com Online';
+						break;
+					case 'Stamps.com Software (Printing Postage Using our Windows Application)':
+						name = 'Stamps.com Software';
+						break;
+					case 'Stamps.com API (SWS/Web Services)':
+						name = 'Stamps.com API';
+						break;
+					case 'Stamps.com Reporting Tools (Postage History, Refunds & SCAN Forms)':
+						name = 'Reporting Tools';
+						break;
+					default:
+						break;	
+				}
 				console.log("name: " + name);
 				console.log("status: " + status  + "\n========================");
 				//  Save results in an object that we'll push into the results array we defined earlier.

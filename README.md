@@ -13,4 +13,4 @@ Spin up the webserver with `npm start`.
 
 Navigate to [http://localhost:3001](http://localhost:3001) to get real time updates from Avalara, BigCommerce, BrainTree, Envoy, HelpScout, LiveChat, ShipStation, and Stamps[.]com.
 
-![screen shot](https://github.com/NaturalEssentialsInc/belligerent-falcon/tree/master/public/images/Capture.PNG "Collected Web Statuses")
+<img src="https://github.com/NaturalEssentialsInc/belligerent-falcon/tree/master/public/images/Capture.PNG" alt="Collected Web Statuses" width="300">

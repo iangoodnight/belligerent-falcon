@@ -38,7 +38,7 @@ io.on('connection', socket => {
 		.then(getLCAndEmit(socket))
 		.then(getSSAndEmit(socket))
 		.then(getHSAndEmit(socket))
-		.then(getStampsAndEmit(socket)), 10000);
+		.then(getStampsAndEmit(socket)), 5000);
 
 	socket.on('disconnect', function() {
 		console.log('Client disconnected');

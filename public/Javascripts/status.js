@@ -54,6 +54,12 @@ function populate(key, data) {
 				     "<div class=\"col-sm tbstyle\">Avalara</div>" +
 				   "</div>";
 		for (i in data.avalara) {
+			if (data.avalara[i].name === "Batch Processing Service") {
+				data.avalara[i].name = "Batch Processing";
+			};
+			if (data.avalara[i].name === "Avalara Customer Portal") {
+				data.avalara[i].name = "Customer Portal";
+			};
 			data.avalara[i].status === "Operational" ? results += "<div class=\"row\">" +
 																	  "<div class=\"col-sm tbstyle\">" + data.avalara[i].name + "</div>" +
 																	  "<div class=\"col-sm tbstyle green\">" + data.avalara[i].status + "</div>" +
@@ -62,7 +68,7 @@ function populate(key, data) {
 																	  "<div class=\"col-sm tbstyle\">" + data.avalara[i].name + "</div>" +
 																	  "<div class=\"col-sm tbstyle redalert\">" + data.avalara[i].status + "</div>" +
 																	"</div>";
-		    if (i == 0) break;
+		    if (i == 9) break;
 		}
 		var filler = 10 - i;
 		// console.log("Debug: " + i);
@@ -188,6 +194,9 @@ function populate(key, data) {
 				     "<div class=\"col-sm tbstyle\">Envoy</div>" +
 				   "</div>";
 		for (i in data.envoy) {
+			if (data.envoy[i].name === "Notification integrations") {
+				data.envoy[i].name = "Notify Integrations";
+			};
 			data.envoy[i].status === "Operational" ? results += "<div class=\"row\">" +
 																  "<div class=\"col-sm tbstyle\">" + data.envoy[i].name + "</div>" +
 																  "<div class=\"col-sm tbstyle green\">" + data.envoy[i].status + "</div>" +
@@ -196,7 +205,7 @@ function populate(key, data) {
 																  "<div class=\"col-sm tbstyle\">" + data.envoy[i].name + "</div>" +
 																  "<div class=\"col-sm tbstyle redalert\">" + data.envoy[i].status + "</div>" +
 																"</div>";
-		    if (i == 0) break;
+		    if (i == 9) break;
 		}
 		var filler = 10 - i;
 		// console.log("Debug: " + i);

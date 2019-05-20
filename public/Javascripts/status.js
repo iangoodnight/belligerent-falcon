@@ -1,50 +1,41 @@
 console.log("Ready!");
 var socket = io();
-socket.on('data', function(data) {
-	console.log(data);
-	var results = "";
-	for (var i = 0; i < data.length; i++) {
-		results = results + "<p>" + data[i].name + ": " + data[i].status + "</p>";
-	}
-	$("#display").html(results);
-	socket.emit('receivedFromClient', { my: 'data' });
-});
 socket.on('newData', function(data) {
-	console.log(data);
+	// console.log(data);
 	for (var key in data) {
 		var results = "";
-		console.log("key: " + key)
+		// console.log("key: " + key)
 		switch (key) {
 			case ('avalara'):
-			console.log("case 1");
+				// console.log("case 1");
 				populate(key, data);
 				break;
 			case ('bigCommerce'):
-				console.log("case 2");
+				// console.log("case 2");
 				populate(key, data);
 				break;
 			case ('brainTree'):
-				console.log("case 3");
+				// console.log("case 3");
 				populate(key, data);
 				break;
 			case ('envoy'):
-				console.log("case 4");
+				// console.log("case 4");
 				populate(key, data);
 				break;
 			case ('helpScout'):
-				console.log("case 5");
+				// console.log("case 5");
 				populate(key, data);
 				break;
 			case ('liveChat'):
-				console.log("case 6");
+				// console.log("case 6");
 				populate(key, data);
 				break;
 			case ('shipStation'):
-				console.log("case 7");
+				// console.log("case 7");
 				populate(key, data);
 				break;
 			case ('stamps'):
-				console.log("case 8");
+				// console.log("case 8");
 				populate(key, data);
 				break;
 			default:
@@ -52,16 +43,36 @@ socket.on('newData', function(data) {
 		}
 	}
 
-	socket.emit('receivedFromClient', { my: 'data' });
+	socket.emit('receivedFromClient', { my: 'big hug' });
 });
 
 function populate(key, data) {
 
 	var results = "";
 	if (key === 'avalara') {
-		console.log("checking status: " + data.avalara[0].status);
-		data.avalara[0].status === "Operational" ? $("#avatax").html("<div class=\"col-sm tbstyle\">Avalara AvaTax</div><div class=\"col-sm tbstyle green\">Operational</div>")
-		:  $("#avatax").html("<div class=\"col-sm tbstyle\">Avalara AvaTax</div><div class=\"col-sm tbstyle redalert\">Offline</div>");
+		results += "<div class=\"row tbstyle\">" +
+				     "<div class=\"col-sm tbstyle\">Avalara</div>" +
+				   "</div>";
+		for (i in data.avalara) {
+			data.avalara[i].status === "Operational" ? results += "<div class=\"row\">" +
+																	  "<div class=\"col-sm tbstyle\">" + data.avalara[i].name + "</div>" +
+																	  "<div class=\"col-sm tbstyle green\">" + data.avalara[i].status + "</div>" +
+																	"</div>" :
+																	"<div class=\"row\">" +
+																	  "<div class=\"col-sm tbstyle\">" + data.avalara[i].name + "</div>" +
+																	  "<div class=\"col-sm tbstyle redalert\">" + data.avalara[i].status + "</div>" +
+																	"</div>";
+		    if (i == 0) break;
+		}
+		var filler = 10 - i;
+		// console.log("Debug: " + i);
+		for (var j = 0; j < filler - 1; j++) {
+			results += "<div class=\"row\">" +
+						 "<div class=\"col-sm tbstyle dim\">No Service</div>" +
+						 "<div class=\"col-sm tbstyle dim\">No Service</div>" +
+					   "</div>";
+		}
+		$("#avalara").html(results);
 	} else if (key === 'bigCommerce') {
 		var status1, status2, status3, status4, status5, status6, status7, status8;
 
@@ -158,13 +169,13 @@ function populate(key, data) {
 																	  "<div class=\"col-sm tbstyle\">" + data.brainTree[i].name + "</div>" +
 																	  "<div class=\"col-sm tbstyle green\">" + data.brainTree[i].status + "</div>" +
 																	"</div>" :
-																	"<div class=\"row\">" +
+														 results += "<div class=\"row\">" +
 																	  "<div class=\"col-sm tbstyle\">" + data.brainTree[i].name + "</div>" +
 																	  "<div class=\"col-sm tbstyle redalert\">" + data.brainTree[i].status + "</div>" +
 																	"</div>";
 		}
 		var filler = 10 - i;
-		console.log("Debug: " + i);
+		// console.log("Debug: " + i);
 		for (var j = 0; j < filler - 1; j++) {
 			results += "<div class=\"row\">" +
 						 "<div class=\"col-sm tbstyle dim\">No Service</div>" +
@@ -178,17 +189,17 @@ function populate(key, data) {
 				   "</div>";
 		for (i in data.envoy) {
 			data.envoy[i].status === "Operational" ? results += "<div class=\"row\">" +
-																	  "<div class=\"col-sm tbstyle\">" + data.envoy[i].name + "</div>" +
-																	  "<div class=\"col-sm tbstyle green\">" + data.envoy[i].status + "</div>" +
-																	"</div>" :
-																	"<div class=\"row\">" +
-																	  "<div class=\"col-sm tbstyle\">" + data.envoy[i].name + "</div>" +
-																	  "<div class=\"col-sm tbstyle redalert\">" + data.envoy[i].status + "</div>" +
-																	"</div>";
+																  "<div class=\"col-sm tbstyle\">" + data.envoy[i].name + "</div>" +
+																  "<div class=\"col-sm tbstyle green\">" + data.envoy[i].status + "</div>" +
+															    "</div>" :
+													 results += "<div class=\"row\">" +
+																  "<div class=\"col-sm tbstyle\">" + data.envoy[i].name + "</div>" +
+																  "<div class=\"col-sm tbstyle redalert\">" + data.envoy[i].status + "</div>" +
+																"</div>";
 		    if (i == 0) break;
 		}
 		var filler = 10 - i;
-		console.log("Debug: " + i);
+		// console.log("Debug: " + i);
 		for (var j = 0; j < filler - 1; j++) {
 			results += "<div class=\"row\">" +
 						 "<div class=\"col-sm tbstyle dim\">No Service</div>" +
@@ -205,14 +216,14 @@ function populate(key, data) {
 																	  "<div class=\"col-sm tbstyle\">" + data.helpScout[i].name + "</div>" +
 																	  "<div class=\"col-sm tbstyle green\">" + data.helpScout[i].status + "</div>" +
 																	"</div>" :
-																	"<div class=\"row\">" +
+														 results +=	"<div class=\"row\">" +
 																	  "<div class=\"col-sm tbstyle\">" + data.helpScout[i].name + "</div>" +
 																	  "<div class=\"col-sm tbstyle redalert\">" + data.helpScout[i].status + "</div>" +
 																	"</div>";
 		    // if (i == 0) break;
 		}
 		var filler = 10 - i;
-		console.log("Debug: " + i);
+		// console.log("Debug: " + i);
 		for (var j = 0; j < filler - 1; j++) {
 			results += "<div class=\"row\">" +
 						 "<div class=\"col-sm tbstyle dim\">No Service</div>" +
@@ -229,14 +240,13 @@ function populate(key, data) {
 																	  "<div class=\"col-sm tbstyle\">" + data.liveChat[i].name + "</div>" +
 																	  "<div class=\"col-sm tbstyle green\">" + data.liveChat[i].status + "</div>" +
 																	"</div>" :
-																	"<div class=\"row\">" +
+														results +=	"<div class=\"row\">" +
 																	  "<div class=\"col-sm tbstyle\">" + data.liveChat[i].name + "</div>" +
 																	  "<div class=\"col-sm tbstyle redalert\">" + data.liveChat[i].status + "</div>" +
 																	"</div>";
-		    // if (i == 0) break;
 		}
 		var filler = 10 - i;
-		console.log("Debug: " + i);
+		// console.log("Debug: " + i);
 		for (var j = 0; j < filler - 1; j++) {
 			results += "<div class=\"row\">" +
 						 "<div class=\"col-sm tbstyle dim\">No Service</div>" +
@@ -250,17 +260,17 @@ function populate(key, data) {
 				   "</div>";
 		for (i in data.shipStation) {
 			data.shipStation[i].status === "Operational" ? results += "<div class=\"row\">" +
-																	  "<div class=\"col-sm tbstyle\">" + data.shipStation[i].name + "</div>" +
-																	  "<div class=\"col-sm tbstyle green\">" + data.shipStation[i].status + "</div>" +
-																	"</div>" :
-																	"<div class=\"row\">" +
-																	  "<div class=\"col-sm tbstyle\">" + data.shipStation[i].name + "</div>" +
-																	  "<div class=\"col-sm tbstyle redalert\">" + data.shipStation[i].status + "</div>" +
-																	"</div>";
+																	    "<div class=\"col-sm tbstyle\">" + data.shipStation[i].name + "</div>" +
+																	    "<div class=\"col-sm tbstyle green\">" + data.shipStation[i].status + "</div>" +
+																	  "</div>" :
+														   results += "<div class=\"row\">" +
+																	    "<div class=\"col-sm tbstyle\">" + data.shipStation[i].name + "</div>" +
+																	    "<div class=\"col-sm tbstyle redalert\">" + data.shipStation[i].status + "</div>" +
+																	  "</div>";
 		    // if (i == 0) break;
 		}
 		var filler = 10 - i;
-		console.log("Debug: " + i);
+		// console.log("Debug: " + i);
 		for (var j = 0; j < filler - 1; j++) {
 			results += "<div class=\"row\">" +
 						 "<div class=\"col-sm tbstyle dim\">No Service</div>" +
@@ -274,17 +284,17 @@ function populate(key, data) {
 				   "</div>";
 		for (i in data.stamps) {
 			data.stamps[i].status === "Operational" ? results += "<div class=\"row\">" +
-																	  "<div class=\"col-sm tbstyle\">" + data.stamps[i].name + "</div>" +
-																	  "<div class=\"col-sm tbstyle green\">" + data.stamps[i].status + "</div>" +
-																	"</div>" :
-																	"<div class=\"row\">" +
-																	  "<div class=\"col-sm tbstyle\">" + data.stamps[i].name + "</div>" +
-																	  "<div class=\"col-sm tbstyle redalert\">" + data.stamps[i].status + "</div>" +
-																	"</div>";
+																   "<div class=\"col-sm tbstyle\">" + data.stamps[i].name + "</div>" +
+																   "<div class=\"col-sm tbstyle green\">" + data.stamps[i].status + "</div>" +
+																 "</div>" :
+													  results += "<div class=\"row\">" +
+																   "<div class=\"col-sm tbstyle\">" + data.stamps[i].name + "</div>" +
+																   "<div class=\"col-sm tbstyle redalert\">" + data.stamps[i].status + "</div>" +
+																 "</div>";
 		    // if (i == 0) break;
 		}
 		var filler = 10 - i;
-		console.log("Debug: " + i);
+		// console.log("Debug: " + i);
 		for (var j = 0; j < filler - 1; j++) {
 			results += "<div class=\"row\">" +
 						 "<div class=\"col-sm tbstyle dim\">No Service</div>" +
@@ -293,4 +303,6 @@ function populate(key, data) {
 		}
 		$("#stamps").html(results);
 	}
+	let updated = new Date();
+	$("#update").html("Updated: " + updated);
 };

@@ -23,6 +23,10 @@
     font-style: normal;
 }
 
+body { 
+	background-image: url("../images/paper.jpg"); 
+}
+
 .tbstylein {
 	border: 5px solid var(--BAbeigeDark);  border-radius: 10px; border-style: outset;
 	box-shadow: 5px 10px  3px #ada68c77, -8px 15px  8px #a5ad8c55;
@@ -63,5 +67,10 @@
 	background-color: var(--BAbeigeDim);
 	box-shadow: inset 0 0 8px 0px var(--BAbeigeDimDim) ,
 				inset 0 0 20px -4px var(--BAbeigeDim);
+}
+
+#update {
+	font-size: .5em;
+	margin: auto;
 }
 

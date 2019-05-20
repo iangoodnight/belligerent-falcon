@@ -2,7 +2,6 @@ var express = require('express');
 var app = express();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
-// var data = require('./scrape.js');
 var path = require('path');
 const rp = require('request-promise');
 const request = require('request');
@@ -19,6 +18,16 @@ let interval;
 
 io.on('connection', socket => {
 	console.log('New client connection received');
+
+	getAlvAndEmit(socket)
+		.then(getBCAndEmit(socket))
+		.then(getBTAndEmit(socket))
+		.then(getEnvoyAndEmit(socket))
+		.then(getLCAndEmit(socket))
+		.then(getSSAndEmit(socket))
+		.then(getHSAndEmit(socket))
+		.then(getStampsAndEmit(socket))
+
 	if (interval) {
 		clearInterval(interval);
 	}
@@ -42,7 +51,6 @@ const getAlvAndEmit = async socket => {
 		const res =  await request("https://status.avalara.com/", function(error, response, html) {
 			var $ = cheerio.load(html);
 			// (i: iterator, element: the current element)
-			// let SSStatuses = [];
 			let results = {'avalara': []};
 			$("div.component-inner-container").each(function(i, element) {
 				//  Declare our name and status variables for building our object.
@@ -52,6 +60,7 @@ const getAlvAndEmit = async socket => {
 				//  Pull out the statuses from our span tags.
 				status = $(element).children('.component-status').text().trim();
 				//  Print results to the console (for testing)
+				console.log("========================\nAVALARA\n========================");
 				console.log("name: " + name);
 				console.log("status: " + status  + "\n========================");
 				//  Save results in an object that we'll push into the results array we defined earlier.
@@ -60,7 +69,6 @@ const getAlvAndEmit = async socket => {
 					status: status
 				});
 			});
-			console.log("results: " + JSON.stringify(results));
 			response = results;
 			// return results;
 			socket.emit('newData', results);
@@ -85,6 +93,7 @@ const getBCAndEmit = async socket => {
 				//  Pull out the statuses from our span tags.
 				status = $(element).children('.component-status').text().trim();
 				//  Print results to the console (for testing)
+				console.log("========================\nBIG COMMERCE\n========================");
 				console.log("name: " + name);
 				console.log("status: " + status  + "\n========================");
 				//  Save results in an object that we'll push into the results array we defined earlier.
@@ -93,7 +102,6 @@ const getBCAndEmit = async socket => {
 					status: status
 				});
 			});
-			console.log("results: " + JSON.stringify(results));
 			response = results;
 			// return results;
 			socket.emit('newData', results);
@@ -119,6 +127,7 @@ const getBTAndEmit = async socket => {
 				status = $(element).children('.component-status').text().trim();
 				//  Print results to the console (for testing)
 				name === "United States Processing" ? name = "US Processing" : name = name;
+				console.log("========================\nBRAIN TREE\n========================");
 				console.log("name: " + name);
 				console.log("status: " + status  + "\n========================");
 				//  Save results in an object that we'll push into the results array we defined earlier.
@@ -127,7 +136,6 @@ const getBTAndEmit = async socket => {
 					status: status
 				});
 			});
-			console.log("results: " + JSON.stringify(results));
 			response = results;
 			// return results;
 			socket.emit('newData', results);
@@ -152,6 +160,7 @@ const getEnvoyAndEmit = async socket => {
 				//  Pull out the statuses from our span tags.
 				status = $(element).children('.component-status').text().trim();
 				//  Print results to the console (for testing)
+				console.log("========================\nENVOY\n========================");
 				console.log("name: " + name);
 				console.log("status: " + status  + "\n========================");
 				//  Save results in an object that we'll push into the results array we defined earlier.
@@ -160,7 +169,42 @@ const getEnvoyAndEmit = async socket => {
 					status: status
 				});
 			});
-			console.log("results: " + JSON.stringify(results));
+			response = results;
+			// return results;
+			// results = {'envoy':[{name: 'Envoy Dashboard', status: "On Fire"}]};
+			socket.emit('newData', results);
+		});
+
+	} catch (error) {
+		console.error(`Error: ${error.code}`);
+	}
+};
+
+const getHSAndEmit = async socket => {
+	try {
+		const res =  await request("http://status.shipstation.com", function(error, response, html) {
+			var $ = cheerio.load(html);
+			// (i: iterator, element: the current element)
+			// let SSStatuses = [];
+			let results = {'helpScout': []};
+			$("div.component-inner-container").each(function(i, element) {
+				//  Declare our name and status variables for building our object.
+				var name, status;
+				//  Pull out the names from our span tags.
+				name = $(element).children('.name').text().trim();
+				//  Pull out the statuses from our span tags.
+				status = $(element).children('.component-status').text().trim();
+				//  Print results to the console (for testing)
+				name === 'Marketplace Integrations' ? name = 'Mrktplace Integrations' : name = name;
+				console.log("========================\nHELP SCOUT\n========================");
+				console.log("name: " + name);
+				console.log("status: " + status  + "\n========================");
+				//  Save results in an object that we'll push into the results array we defined earlier.
+				results.helpScout.push({
+					name: name,
+					status: status
+				});
+			});
 			response = results;
 			// return results;
 			socket.emit('newData', results);
@@ -186,6 +230,7 @@ const getLCAndEmit = async socket => {
 				status = $(element).children('.component-status').text().trim();
 				//  Print results to the console (for testing)
 				name === 'Support chat on www.livechatinc.com' ? name = 'Support Chat' : name = name;
+				console.log("========================\nLIVE CHAT\n========================");
 				console.log("name: " + name);
 				console.log("status: " + status  + "\n========================");
 				//  Save results in an object that we'll push into the results array we defined earlier.
@@ -194,7 +239,6 @@ const getLCAndEmit = async socket => {
 					status: status
 				});
 			});
-			console.log("results: " + JSON.stringify(results));
 			response = results;
 			// return results;
 			socket.emit('newData', results);
@@ -219,7 +263,9 @@ const getSSAndEmit = async socket => {
 				name = $(element).children('.name').text().trim();
 				//  Pull out the statuses from our span tags.
 				status = $(element).children('.component-status').text().trim();
+				name === 'Marketplace Integrations' ? name = 'Mrktplace Integrations' : name = name;
 				//  Print results to the console (for testing)
+				console.log("========================\nSHIP STATION\n========================");
 				console.log("name: " + name);
 				console.log("status: " + status  + "\n========================");
 				//  Save results in an object that we'll push into the results array we defined earlier.
@@ -228,41 +274,6 @@ const getSSAndEmit = async socket => {
 					status: status
 				});
 			});
-			console.log("results: " + JSON.stringify(results));
-			response = results;
-			// return results;
-			socket.emit('newData', results);
-		});
-
-	} catch (error) {
-		console.error(`Error: ${error.code}`);
-	}
-};
-
-const getHSAndEmit = async socket => {
-	try {
-		const res =  await request("http://status.shipstation.com", function(error, response, html) {
-			var $ = cheerio.load(html);
-			// (i: iterator, element: the current element)
-			// let SSStatuses = [];
-			let results = {'helpScout': []};
-			$("div.component-inner-container").each(function(i, element) {
-				//  Declare our name and status variables for building our object.
-				var name, status;
-				//  Pull out the names from our span tags.
-				name = $(element).children('.name').text().trim();
-				//  Pull out the statuses from our span tags.
-				status = $(element).children('.component-status').text().trim();
-				//  Print results to the console (for testing)
-				console.log("name: " + name);
-				console.log("status: " + status  + "\n========================");
-				//  Save results in an object that we'll push into the results array we defined earlier.
-				results.helpScout.push({
-					name: name,
-					status: status
-				});
-			});
-			console.log("results: " + JSON.stringify(results));
 			response = results;
 			// return results;
 			socket.emit('newData', results);
@@ -304,6 +315,7 @@ const getStampsAndEmit = async socket => {
 					default:
 						break;	
 				}
+				console.log("========================\nSTAMPS.COM\n========================");
 				console.log("name: " + name);
 				console.log("status: " + status  + "\n========================");
 				//  Save results in an object that we'll push into the results array we defined earlier.
@@ -312,7 +324,6 @@ const getStampsAndEmit = async socket => {
 					status: status
 				});
 			});
-			console.log("results: " + JSON.stringify(results));
 			response = results;
 			// return results;
 			socket.emit('newData', results);
@@ -326,3 +337,4 @@ const getStampsAndEmit = async socket => {
 http.listen(3001, function() {
 	console.log('HTTP server started on port 3001');
 });
+

@@ -22,16 +22,54 @@ io.on('connection', socket => {
 	if (interval) {
 		clearInterval(interval);
 	}
-	interval = setInterval(() => getBCAndEmit(socket)
+	interval = setInterval(() => getAlvAndEmit(socket)
+		.then(getBCAndEmit(socket))
+		.then(getBTAndEmit(socket))
+		.then(getEnvoyAndEmit(socket))
+		.then(getLCAndEmit(socket))
 		.then(getSSAndEmit(socket))
 		.then(getHSAndEmit(socket))
-		.then(getAlvAndEmit(socket)), 10000);
+		.then(getStampsAndEmit(socket)), 10000);
 
 	socket.on('disconnect', function() {
 		console.log('Client disconnected');
 	});
 
-}); 
+});
+
+const getAlvAndEmit = async socket => {
+	try {
+		const res =  await request("https://status.avalara.com/", function(error, response, html) {
+			var $ = cheerio.load(html);
+			// (i: iterator, element: the current element)
+			// let SSStatuses = [];
+			let results = {'avalara': []};
+			$("div.component-inner-container").each(function(i, element) {
+				//  Declare our name and status variables for building our object.
+				var name, status;
+				//  Pull out the names from our span tags.
+				name = $(element).children('.name').text().trim();
+				//  Pull out the statuses from our span tags.
+				status = $(element).children('.component-status').text().trim();
+				//  Print results to the console (for testing)
+				console.log("name: " + name);
+				console.log("status: " + status  + "\n========================");
+				//  Save results in an object that we'll push into the results array we defined earlier.
+				results.avalara.push({
+					name: name,
+					status: status
+				});
+			});
+			console.log("results: " + JSON.stringify(results));
+			response = results;
+			// return results;
+			socket.emit('newData', results);
+		});
+
+	} catch (error) {
+		console.error(`Error: ${error.code}`);
+	}
+};
 
 const getBCAndEmit = async socket => {
 	try {
@@ -51,6 +89,106 @@ const getBCAndEmit = async socket => {
 				console.log("status: " + status  + "\n========================");
 				//  Save results in an object that we'll push into the results array we defined earlier.
 				results.bigCommerce.push({
+					name: name,
+					status: status
+				});
+			});
+			console.log("results: " + JSON.stringify(results));
+			response = results;
+			// return results;
+			socket.emit('newData', results);
+		});
+
+	} catch (error) {
+		console.error(`Error: ${error.code}`);
+	}
+};
+
+const getBTAndEmit = async socket => {
+	try {
+		const res =  await request("https://status.braintreepayments.com/", function(error, response, html) {
+			var $ = cheerio.load(html);
+			// (i: iterator, element: the current element)
+			let results = {'brainTree':[]};
+			$("div.component-inner-container").each(function(i, element) {
+				//  Declare our name and status variables for building our object.
+				var name, status;
+				//  Pull out the names from our span tags.
+				name = $(element).children('.name').text().trim();
+				//  Pull out the statuses from our span tags.
+				status = $(element).children('.component-status').text().trim();
+				//  Print results to the console (for testing)
+				name === "United States Processing" ? name = "US Processing" : name = name;
+				console.log("name: " + name);
+				console.log("status: " + status  + "\n========================");
+				//  Save results in an object that we'll push into the results array we defined earlier.
+				results.brainTree.push({
+					name: name,
+					status: status
+				});
+			});
+			console.log("results: " + JSON.stringify(results));
+			response = results;
+			// return results;
+			socket.emit('newData', results);
+		});
+
+	} catch (error) {
+		console.error(`Error: ${error.code}`);
+	}
+};
+
+const getEnvoyAndEmit = async socket => {
+	try {
+		const res =  await request("https://status.envoy.com/", function(error, response, html) {
+			var $ = cheerio.load(html);
+			// (i: iterator, element: the current element)
+			let results = {'envoy':[]};
+			$("div.component-inner-container").each(function(i, element) {
+				//  Declare our name and status variables for building our object.
+				var name, status;
+				//  Pull out the names from our span tags.
+				name = $(element).children('.name').text().trim();
+				//  Pull out the statuses from our span tags.
+				status = $(element).children('.component-status').text().trim();
+				//  Print results to the console (for testing)
+				console.log("name: " + name);
+				console.log("status: " + status  + "\n========================");
+				//  Save results in an object that we'll push into the results array we defined earlier.
+				results.envoy.push({
+					name: name,
+					status: status
+				});
+			});
+			console.log("results: " + JSON.stringify(results));
+			response = results;
+			// return results;
+			socket.emit('newData', results);
+		});
+
+	} catch (error) {
+		console.error(`Error: ${error.code}`);
+	}
+};
+
+const getLCAndEmit = async socket => {
+	try {
+		const res =  await request("https://status.livechatinc.com/", function(error, response, html) {
+			var $ = cheerio.load(html);
+			// (i: iterator, element: the current element)
+			let results = {'liveChat':[]};
+			$("div.component-inner-container").each(function(i, element) {
+				//  Declare our name and status variables for building our object.
+				var name, status;
+				//  Pull out the names from our span tags.
+				name = $(element).children('.name').text().trim();
+				//  Pull out the statuses from our span tags.
+				status = $(element).children('.component-status').text().trim();
+				//  Print results to the console (for testing)
+				console.log("name: " + name);
+				console.log("status: " + status  + "\n========================");
+				//  Save results in an object that we'll push into the results array we defined earlier.
+				results.liveChat.push({
 					name: name,
 					status: status
 				});
@@ -134,13 +272,13 @@ const getHSAndEmit = async socket => {
 	}
 };
 
-const getAlvAndEmit = async socket => {
+const getStampsAndEmit = async socket => {
 	try {
-		const res =  await request("https://status.avalara.com/", function(error, response, html) {
+		const res =  await request("https://status.stamps.com/", function(error, response, html) {
 			var $ = cheerio.load(html);
 			// (i: iterator, element: the current element)
 			// let SSStatuses = [];
-			let results = {'alvara': []};
+			let results = {'stamps': []};
 			$("div.component-inner-container").each(function(i, element) {
 				//  Declare our name and status variables for building our object.
 				var name, status;
@@ -152,7 +290,7 @@ const getAlvAndEmit = async socket => {
 				console.log("name: " + name);
 				console.log("status: " + status  + "\n========================");
 				//  Save results in an object that we'll push into the results array we defined earlier.
-				results.alvara.push({
+				results.stamps.push({
 					name: name,
 					status: status
 				});
@@ -167,7 +305,6 @@ const getAlvAndEmit = async socket => {
 		console.error(`Error: ${error.code}`);
 	}
 };
-
 
 http.listen(3001, function() {
 	console.log('HTTP server started on port 3001');

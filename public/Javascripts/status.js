@@ -82,65 +82,67 @@ function populate(key, data) {
 	} else if (key === 'bigCommerce') {
 		var status1, status2, status3, status4, status5, status6, status7, status8;
 
+		// console.log("big commerce raw: " + JSON.stringify(data.bigCommerce));
+
 		data.bigCommerce[0].status === "Operational" ? status1 = "<div class=\"row\">" +
-																   "<div class=\"col-sm tbstyle\">Storefront</div>" +
-																   "<div class=\"col-sm tbstyle green\">Operational</div>" +
+																   "<div class=\"col-sm tbstyle\">" + data.bigCommerce[0].name + "</div>" +
+																   "<div class=\"col-sm tbstyle green\">" + data.bigCommerce[0].status + "</div>" +
 																 "</div>" : 
 													   status1 = "<div class=\"row\">" +
-																   "<div class=\"col-sm tbstyle\">Storefront</div>" +
-																   "<div class=\"col-sm tbstyle redalert\">Offline</div>" +
+																   "<div class=\"col-sm tbstyle\">" + data.bigCommerce[0].name + "</div>" +
+																   "<div class=\"col-sm tbstyle redalert\">" + data.bigCommerce[0].status + "</div>" +
 																 "</div>";
 		data.bigCommerce[1].status === "Operational" ? status2 = "<div class=\"row\">" +
-																   "<div class=\"col-sm tbstyle\">Control Panel</div>" +
-																   "<div class=\"col-sm tbstyle green\">Operational</div>" +
+																   "<div class=\"col-sm tbstyle\">" + data.bigCommerce[1].name + "</div>" +
+																   "<div class=\"col-sm tbstyle green\">" + data.bigCommerce[1].status + "</div>" +
 																 "</div>" : 
 													   status2 = "<div class=\"row\">" +
-																   "<div class=\"col-sm tbstyle\">Control Panel</div>" +
-																   "<div class=\"col-sm tbstyle redalert\">Offline</div>" +
+																   "<div class=\"col-sm tbstyle\">" + data.bigCommerce[1].name + "</div>" +
+																   "<div class=\"col-sm tbstyle redalert\">" + data.bigCommerce[1].status + "</div>" +
 																 "</div>";
 		data.bigCommerce[2].status === "Operational" ? status3 = "<div class=\"row\">" +
-																   "<div class=\"col-sm tbstyle\">API</div>" +
-																   "<div class=\"col-sm tbstyle green\">Operational</div>" +
+																   "<div class=\"col-sm tbstyle\">" + data.bigCommerce[2].name + "</div>" +
+																   "<div class=\"col-sm tbstyle green\">" + data.bigCommerce[2].status + "</div>" +
 																 "</div>" : 
 													   status3 = "<div class=\"row\">" +
-																   "<div class=\"col-sm tbstyle\">API</div>" +
-																   "<div class=\"col-sm tbstyle redalert\">Offline</div>" +
+																   "<div class=\"col-sm tbstyle\">" + data.bigCommerce[2].name + "</div>" +
+																   "<div class=\"col-sm tbstyle redalert\">" + data.bigCommerce[2].status + "</div>" +
 																 "</div>";
 		data.bigCommerce[5].status === "Operational" ? status4 = "<div class=\"row\">" +
-																   "<div class=\"col-sm tbstyle\">DNS</div>" +
-																   "<div class=\"col-sm tbstyle green\">Operational</div>" +
+																   "<div class=\"col-sm tbstyle\">" + data.bigCommerce[3].name + "</div>" +
+																   "<div class=\"col-sm tbstyle green\">" + data.bigCommerce[3].status + "</div>" +
 																 "</div>" : 
 													   status4 = "<div class=\"row\">" +
-																   "<div class=\"col-sm tbstyle\">DNS</div>" +
-																   "<div class=\"col-sm tbstyle redalert\">Offline</div>" +
+																   "<div class=\"col-sm tbstyle\">" + data.bigCommerce[3].name + "</div>" +
+																   "<div class=\"col-sm tbstyle redalert\">" + data.bigCommerce[3].status + "</div>" +
 																 "</div>";
 		data.bigCommerce[9].status === "Operational" ? status5 = "<div class=\"row\">" +
-																   "<div class=\"col-sm tbstyle\">Search/Faceted Search</div>" +
-																   "<div class=\"col-sm tbstyle green\">Operational</div>" +
+																   "<div class=\"col-sm tbstyle\">" + data.bigCommerce[5].name + "</div>" +
+																   "<div class=\"col-sm tbstyle green\">" + data.bigCommerce[5].status + "</div>" +
 																 "</div>" : 
 													   status5 = "<div class=\"row\">" +
-																   "<div class=\"col-sm tbstyle\">Search/Faceted Search</div>" +
-																   "<div class=\"col-sm tbstyle redalert\">Offline</div>" +
+																   "<div class=\"col-sm tbstyle\">" + data.bigCommerce[5].name + "</div>" +
+																   "<div class=\"col-sm tbstyle redalert\">" + data.bigCommerce[5].status + "</div>" +
 																 "</div>";
-		data.bigCommerce[18].status === "Operational" ? status6 = "<div class=\"row\">" +
-																   "<div class=\"col-sm tbstyle\">3rd Party Services</div>" +
-																   "<div class=\"col-sm tbstyle green\">Operational</div>" +
+		data.bigCommerce[20].status === "Operational" ? status6 = "<div class=\"row\">" +
+																   "<div class=\"col-sm tbstyle\">" + data.bigCommerce[8].name + "</div>" +
+																   "<div class=\"col-sm tbstyle green\">" + data.bigCommerce[8].status + "</div>" +
 																 "</div>" : 
 													   status6 = "<div class=\"row\">" +
-																   "<div class=\"col-sm tbstyle\">3rd Party Services</div>" +
-																   "<div class=\"col-sm tbstyle redalert\">Offline</div>" +
+																   "<div class=\"col-sm tbstyle\">" + data.bigCommerce[8].name + "</div>" +
+																   "<div class=\"col-sm tbstyle redalert\">" + data.bigCommerce[8].status + "</div>" +
 																 "</div>";
-		data.bigCommerce[19].status === "Operational" ? status7 = "<div class=\"row\">" +
-																   "<div class=\"col-sm tbstyle\">Avalara Integrations</div>" +
-																   "<div class=\"col-sm tbstyle green\">Operational</div>" +
+		data.bigCommerce[20].status === "Operational" ? status7 = "<div class=\"row\">" +
+																   "<div class=\"col-sm tbstyle\">" + data.bigCommerce[20].name + "</div>" +
+																   "<div class=\"col-sm tbstyle green\">" + data.bigCommerce[20].status + "</div>" +
 																 "</div>" : 
 													   status7 = "<div class=\"row\">" +
-																   "<div class=\"col-sm tbstyle\">Avalara Integrations</div>" +
-																   "<div class=\"col-sm tbstyle redalert\">Offline</div>" +
+																   "<div class=\"col-sm tbstyle\">" + data.bigCommerce[20].name + "</div>" +
+																   "<div class=\"col-sm tbstyle redalert\">" + data.bigCommerce[20].status + "</div>" +
 																 "</div>";
 		data.bigCommerce[20].status === "Operational" ? status8 = "<div class=\"row\">" +
-																   "<div class=\"col-sm tbstyle\">Brain Tree Integrations</div>" +
-																   "<div class=\"col-sm tbstyle green\">Operational</div>" +
+																   "<div class=\"col-sm tbstyle\">" + data.bigCommerce[21].name + "</div>" +
+																   "<div class=\"col-sm tbstyle green\">" + data.bigCommerce[21].status + "</div>" +
 																 "</div>" +
 																 "<div class=\"row\">" +
 															       "<div class=\"col-sm tbstyle dim\">No Service</div>" +
@@ -151,8 +153,8 @@ function populate(key, data) {
 																   "<div class=\"col-sm tbstyle dim\">No Service</div>" +
 																 "</div>" : 
 													   status8 = "<div class=\"row\">" +
-																   "<div class=\"col-sm tbstyle\">Brain Tree Integrations</div>" +
-																   "<div class=\"col-sm tbstyle redalert\">Offline</div>" +
+																   "<div class=\"col-sm tbstyle\">" + data.bigCommerce[21].name + "</div>" +
+																   "<div class=\"col-sm tbstyle redalert\">" + data.bigCommerce[21].status + "</div>" +
 																 "</div>" +
 																 "<div class=\"row\">" +
 															       "<div class=\"col-sm tbstyle dim\">No Service</div>" +
@@ -205,7 +207,7 @@ function populate(key, data) {
 																  "<div class=\"col-sm tbstyle\">" + data.envoy[i].name + "</div>" +
 																  "<div class=\"col-sm tbstyle redalert\">" + data.envoy[i].status + "</div>" +
 																"</div>";
-		    if (i == 9) break;
+		    if (i == 5) break;
 		}
 		var filler = 10 - i;
 		// console.log("Debug: " + i);
@@ -217,6 +219,7 @@ function populate(key, data) {
 		}
 		$("#envoy").html(results);		
 	} else if (key === 'helpScout') {
+		// console.log("helpscout: " + JSON.stringify(data.helpScout));
 		results += "<div class=\"row tbstyle\">" +
 				     "<div class=\"col-sm tbstyle\">HelpScout</div>" +
 				   "</div>";

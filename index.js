@@ -182,7 +182,7 @@ const getEnvoyAndEmit = async socket => {
 
 const getHSAndEmit = async socket => {
 	try {
-		const res =  await request("http://status.shipstation.com", function(error, response, html) {
+		const res =  await request("http://status.helpscout.com", function(error, response, html) {
 			var $ = cheerio.load(html);
 			// (i: iterator, element: the current element)
 			// let SSStatuses = [];

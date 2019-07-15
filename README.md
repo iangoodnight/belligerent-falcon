@@ -11,6 +11,6 @@ Change directory into the project with `cd belligerent-falcon` and install node 
 
 Spin up the webserver with `npm start`.
 
-Navigate to [http://localhost:3001](http://localhost:3001) to get real time updates from Avalara, BigCommerce, BrainTree, Envoy, HelpScout, LiveChat, ShipStation, and Stamps[.]com.
+Navigate to [http://192.168.1.59:3001](http://192.168.1.59:3001) to get real time updates from Avalara, BigCommerce, BrainTree, Envoy, HelpScout, LiveChat, ShipStation, and Stamps[.]com.
 
 ![screen shot](/public/images/Capture.PNG)
